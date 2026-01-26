@@ -1,7 +1,6 @@
 from flask import Flask
 from dotenv import load_dotenv
 from google.transit import gtfs_realtime_pb2
-from google.protobuf.json_format import MessageToDict
 import requests
 import os
 
@@ -11,8 +10,8 @@ API_KEY = os.getenv('API_KEY')
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+def index():
+    return request_translink_api()
 
 def request_translink_api():
     response = requests.get(f'https://gtfsapi.translink.ca/v3/gtfsposition?apikey={API_KEY}')
