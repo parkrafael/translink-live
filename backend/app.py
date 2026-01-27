@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, jsonify
+from flask_cors import CORS
 from dotenv import load_dotenv
 from google.transit import gtfs_realtime_pb2
 import requests
@@ -8,6 +9,7 @@ load_dotenv()
 API_KEY = os.getenv('API_KEY')
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
