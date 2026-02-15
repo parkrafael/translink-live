@@ -1,12 +1,13 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
 from google.transit import gtfs_realtime_pb2
+
 import requests
 import os
 
 load_dotenv()
-API_KEY = os.getenv('API_KEY')
+TRANSLINK_API_KEY = os.getenv('TRANSLINK_API_KEY')
 
 app = Flask(__name__)
 CORS(app)
@@ -16,7 +17,7 @@ def index():
     return request_translink_api()
 
 def request_translink_api():
-    response = requests.get(f'https://gtfsapi.translink.ca/v3/gtfsposition?apikey={API_KEY}')
+    response = requests.get(f'https://gtfsapi.translink.ca/v3/gtfsposition?apikey={TRANSLINK_API_KEY}')
     feed = gtfs_realtime_pb2.FeedMessage()
     feed.ParseFromString(response.content)
 
